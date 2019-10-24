@@ -29,7 +29,7 @@ footer, header, menu, nav, section {
     display: block;
 }
 
-body {
+body, html {
     line-height: 1;
 }
 
@@ -50,7 +50,7 @@ table {
 /* custom */
 a {
     color: #7e8c8d;
-    text-decoration: none;
+    text-decoration: none; 
     -webkit-backface-visibility: hidden;
 }
 
