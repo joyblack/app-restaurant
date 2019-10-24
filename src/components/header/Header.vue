@@ -18,9 +18,42 @@
                 </div>
             </div>
 
-            <div class="support-count" v-if="seller.supports">
+            <div class="support-count" v-if="seller.supports" @click="showDetail">
                 <span class="count">{{seller.supports.length}}个 ></span>
                 <i></i>
+            </div>
+        </div>
+
+        <!-- 公告 -->
+        <div class="bulletin-wrapper" @click="showDetail">
+            <span class="bulletin-title"></span>
+            <span class="bulletin-text">{{seller.bulletin}}</span>
+            <span class="icon-bulletin">></span>
+        </div>
+
+        <!-- 背景图 -->
+        <div class="header-background">
+            <img :src="seller.avatar" height="100%" width="100%"/>
+        </div>
+
+        <!-- 浮层 -->
+        <div class="detail" v-show="detailShow">
+            <div class="detail-wrapper clearfix">
+                <div class="detail-main">
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                        {{seller.bulletin}}
+                </div>
+            </div>
+            <div class="detail-close">
+                X
             </div>
         </div>
     </div>
@@ -30,7 +63,8 @@
 export default {
     data() {
         return {
-            classMap: []
+            classMap: [],
+            detailShow: false
         }
     },
     props: {
@@ -40,14 +74,22 @@ export default {
     },
     created: function(){
         this.classMap = ["icon-image-decrease", "icon-image-discount", "icon-image-special", "icon-image-invoice", "icon-image-guarantee"];
+    },
+    methods: {
+        showDetail: function(){
+            this.detailShow = true;
+        }
     }
 }
 </script>
 
 <style>
  .headers {
-     color: #fff;
-     background: #999;
+    position: relative;
+    color: #fff;
+    /* 通过设置此浮层，才能模糊显示底部的背景图片 */
+    background: rgba(7, 17, 27, 0.5);
+    overflow: hidden;
  }
 
  .content-wrapper{
@@ -150,5 +192,82 @@ export default {
     background-image: url('../../assets/img/invoice_1@2x.png');
 }
 
+/* 公告部分 */
+.bulletin-wrapper {
+    position: relative;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 22px 0 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: rgba(7, 17, 27, 0.2)
+}
+
+.bulletin-wrapper .bulletin-title {
+    margin-top: 7px;
+    display: inline-block;
+    vertical-align: top;
+    width: 22px;
+    height: 12px;
+    background-image: url('../../assets/img/bulletin@2x.png');
+    background-size: 22px 12px;
+    background-repeat: no-repeat;
+}
+
+.bulletin-wrapper .bulletin-text {
+    vertical-align: top;
+    font-size: 10px;
+    margin: 0 4px;
+}
+
+.bulletin-wrapper .icon-bulletin{
+    position: absolute;
+    font-size: 10px;
+    right: 12px;
+    top: 2px;
+}
+
+/* 背景图 */
+.headers .header-background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+   
+}
+
+/* 浮层 sticky footer 设计技巧 保证X不遮挡文字 */
+.headers .detail{
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(7, 17, 27, 0.8);
+    top: 0;
+    left: 0;
+}
+
+.detail .detail-wrapper {
+    min-height: 100%;   
+}
+
+.detail .detail-wrapper .detail-main {
+    margin-top: 64px;
+    padding-bottom: 64px;  
+    background: red;
+}
+
+.detail .detail-close {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    margin: -64px auto 0 auto;
+    clear: both;
+    font-size: 32px;
+}
 
 </style>
